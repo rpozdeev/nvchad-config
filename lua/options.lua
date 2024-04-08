@@ -1,6 +1,15 @@
 require "nvchad.options"
 
--- add yours here!
+local opt = vim.opt
 
--- local o = vim.o
--- o.cursorlineopt ='both' -- to enable cursorline!
+opt.relativenumber = true
+
+opt.scrolloff = 10
+
+opt.spelllang = { "ru_ru", "en_us" }
+opt.spell = true
+
+opt.cursorline = true
+opt.colorcolumn = "120"
+
+opt.swapfile = false
