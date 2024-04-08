@@ -1,4 +1,9 @@
 return {
+  -- { "MunifTanjim/nui.nvim", lazy = true },
+  -- {
+  --   "stevearc/dressing.nvim",
+  --   opts = {},
+  -- },
   {
     "stevearc/oil.nvim",
     event = "VimEnter",
@@ -61,6 +66,7 @@ return {
   },
   {
     "kevinhwang91/nvim-ufo",
+    event = "VimEnter",
     dependencies = "kevinhwang91/promise-async",
     keys = {
       {
@@ -96,8 +102,45 @@ return {
       provider_selector = function(bufnr, filetype, buftype)
         return { "treesitter", "indent" }
       end,
+      filetype_exclude = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
     },
+    config = function(_, opts)
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("local_detach_ufo", { clear = true }),
+        pattern = opts.filetype_exclude,
+        callback = function()
+          require("ufo").detach()
+        end,
+      })
+
+      vim.opt.foldcolumn = "0" -- '0' is not bad
+      -- vim.opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+      -- vim.opt.foldlevelstart = 99
+      -- vim.opt.foldenable = true
+      -- vim.opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+      require("ufo").setup(opts)
+    end,
   },
+  -- {
+  --   "luukvbaal/statuscol.nvim",
+  --   opts = function()
+  --     local builtin = require "statuscol.builtin"
+  --     return {
+  --   --     setopt = true,
+  --   --     -- override the default list of segments with:
+  --   --     -- number-less fold indicator, then signs, then line number & separator
+  --   --     segments = {
+  --   --       { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
+  --   --       { text = { "%s" }, click = "v:lua.ScSa" },
+  --   --       {
+  --   --         text = { builtin.lnumfunc, " " },
+  --   --         condition = { true, builtin.not_empty },
+  --   --         click = "v:lua.ScLa",
+  --   --       },
+  --   --     },
+  --     }
+  --   end,
+  -- },
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },

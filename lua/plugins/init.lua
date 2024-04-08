@@ -1,7 +1,7 @@
 return {
   {
     "stevearc/conform.nvim",
-    event = "BufWritePre", -- uncomment for format on save
+    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
     cmd = "ConformInfo",
     config = function()
       require "configs.conform"
@@ -24,6 +24,9 @@ return {
         "css-lsp",
         "prettier",
         "terraform-ls",
+        "yamlfix",
+        "helm-ls",
+        "tflint",
       },
     },
   },
@@ -37,6 +40,8 @@ return {
         "html",
         "css",
         "terraform",
+        "hcl",
+        "yaml",
       },
     },
   },

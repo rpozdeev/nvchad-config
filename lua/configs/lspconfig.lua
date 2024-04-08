@@ -2,7 +2,16 @@ local configs = require "nvchad.configs.lspconfig"
 
 local servers = {
   terraformls = {},
-
+  yamlls = {},
+  helm_ls = {
+    settings = {
+      ["helm-ls"] = {
+        yamlls = {
+          path = "yaml-language-server",
+        },
+      },
+    },
+  },
   -- pyright = {
   --   settings = {
   --     python = {
@@ -13,6 +22,11 @@ local servers = {
   --     },
   --   },
   -- },
+}
+
+configs.capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true,
 }
 
 for name, opts in pairs(servers) do
