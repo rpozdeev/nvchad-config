@@ -12,16 +12,20 @@ local servers = {
       },
     },
   },
-  -- pyright = {
-  --   settings = {
-  --     python = {
-  --       analysis = {
-  --         autoSearchPaths = true,
-  --         typeCheckingMode = "basic",
-  --       },
-  --     },
-  --   },
-  -- },
+  pyright = {
+    settings = {
+      pyright = {
+        -- Using Ruff's import organizer
+        disableOrganizeImports = true,
+      },
+      python = {
+        analysis = {
+          -- Ignore all files for analysis to exclusively use Ruff for linting
+          ignore = { "*" },
+        },
+      },
+    },
+  },
 }
 
 configs.capabilities.textDocument.foldingRange = {
@@ -34,5 +38,24 @@ for name, opts in pairs(servers) do
   opts.on_attach = configs.on_attach
   opts.capabilities = configs.capabilities
 
+  if name == "ruff_lsp" then
+    opts.on_attach.server_capabilities.hoverProvider = false
+  end
+
   require("lspconfig")[name].setup(opts)
 end
+
+vim.diagnostic.config {
+  virtual_text = false,
+}
+
+require("cmp").setup {
+  sources = {
+    { name = "path" },
+    { name = "codeium" },
+    { name = "nvim_lsp" },
+    { name = "luasnip" },
+    { name = "buffer" },
+    { name = "nvim_lua" },
+  },
+}

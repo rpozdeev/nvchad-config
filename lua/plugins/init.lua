@@ -27,6 +27,11 @@ return {
         "yamlfix",
         "helm-ls",
         "tflint",
+        "yaml-language-server",
+        "ruff",
+        "ruff-lsp",
+        "pyright",
+        "debugpy",
       },
     },
   },
@@ -42,7 +47,22 @@ return {
         "terraform",
         "hcl",
         "yaml",
+        "ninja",
+        "python",
+        "rst",
+        "toml",
       },
     },
+  },
+  {
+    "Exafunction/codeium.nvim",
+    event = "BufEnter",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "hrsh7th/nvim-cmp",
+    },
+    config = function()
+      require("codeium").setup {}
+    end,
   },
 }

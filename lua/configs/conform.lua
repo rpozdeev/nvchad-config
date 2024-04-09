@@ -5,9 +5,10 @@ local options = {
     tf = { "terraform_fmt" },
     ["terraform-vars"] = { "terraform_fmt" },
     yaml = { "yamlfix" },
+    python = { "ruff_fix", "ruff_format" },
     -- css = { "prettier" },
     -- html = { "prettier" },
-    ["*"] = { "codespell" },
+    -- ["*"] = { "codespell" },
   },
 
   format_on_save = {

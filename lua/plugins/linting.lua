@@ -8,6 +8,7 @@ return {
       lint.linters_by_ft = {
         terraform = { "tflint" },
         tf = { "tflint" },
+        python = { "ruff" },
         -- markdown = { "markdownlint" },
         -- dockerfile = { "hadolint" },
       }
